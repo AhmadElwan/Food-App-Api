@@ -21,6 +21,57 @@ const verifyToken = (req, res, next) => {
     }
 }
 
+// function to verify token and authorization
+
+const verifyAndAuthorization = (req, res, next) => {
+    verifyToken(req, res, () => {
+        if(req.user.userType === 'Admin' || req.user.userType === 'Client' || req.user.userType === 'Driver' || req.user.userType === 'Vendor'){
+            next();
+        } else {
+            res.status(403).json({status: 'false', error: 'You are not authorized to perform this action!'});
+        }
+    })
+}
+
+// function to verify if the user is a Vendor or an Admin
+
+const verifyVendor = (req, res, next) => {
+    verifyToken(req, res, () => {
+        if(req.user.userType === 'Vendor' || req.user.userType === 'Admin'){
+            next();
+        } else {
+            res.status(403).json({status: 'false', error: 'You are not authorized to perform this action!'});
+        }
+    })
+}
+
+// function to verify if the user is a Driver or an Admin
+
+const verifyDriver = (req, res, next) => {
+    verifyToken(req, res, () => {
+        if(req.user.userType === 'Driver' || req.user.userType === 'Admin'){
+            next();
+        } else {
+            res.status(403).json({status: 'false', error: 'You are not authorized to perform this action!'});
+        }
+    })
+}
+
+// function to verify if the user is an Admin
+
+const verifyAdmin = (req, res, next) => {
+    verifyToken(req, res, () => {
+        if(req.user.userType === 'Admin'){
+            next();
+        } else {
+            res.status(403).json({status: 'false', error: 'You are not authorized to perform this action!'});
+        }
+    })
+}
 
 
-modules.exports = {verifyToken}
+
+
+
+
+modules.exports = {verifyToken, verifyAndAuthorization, verifyVendor, verifyDriver, verifyAdmin}
