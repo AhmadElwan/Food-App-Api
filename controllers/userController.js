@@ -67,4 +67,4 @@ updateUser = async (req, res) => {
 
 
 
-modules.exports = {getUser, deleteUser, updateUser};
+module.exports = {getUser, deleteUser, updateUser};

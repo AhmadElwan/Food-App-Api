@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 
 
 const authRouter = require('./routes/auth');
+const userRouter = require('./routes/user');
 
 
 // Creating an Express application
@@ -44,6 +45,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Handling requests to the root endpoint
 
 app.use('/', authRouter);
+app.use('/api/users', userRouter);
+
 
 // Starting the Express server on the specified port or a default port
 

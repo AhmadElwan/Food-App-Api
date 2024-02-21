@@ -74,4 +74,4 @@ const verifyAdmin = (req, res, next) => {
 
 
 
-modules.exports = {verifyToken, verifyAndAuthorization, verifyVendor, verifyDriver, verifyAdmin}
+module.exports = {verifyToken, verifyAndAuthorization, verifyVendor, verifyDriver, verifyAdmin}

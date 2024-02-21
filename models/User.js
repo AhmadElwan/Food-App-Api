@@ -38,8 +38,8 @@ const UserSchema = new mongoose.Schema({
     userType: {
         type: String,
         required: true,
-        enum: ['Admin', 'Driver', 'Client', 'Vendor'],
-        default: 'Client'
+        default: 'Client',
+        enum: ['Admin', 'Driver', 'Client', 'Vendor']
     },
 
     profile:{
