@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 
 const authRouter = require('./routes/auth');
 const userRouter = require('./routes/user');
+const restaurantRouter = require('./routes/restaurant');
 
 
 // Creating an Express application
@@ -46,6 +47,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/', authRouter);
 app.use('/api/users', userRouter);
+app.use('/api/restaurants', restaurantRouter);
 
 
 // Starting the Express server on the specified port or a default port

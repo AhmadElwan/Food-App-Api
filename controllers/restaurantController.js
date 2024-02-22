@@ -76,7 +76,7 @@ getRestaurant = async (req, res) => {
 
     try{
         
-        const restaurant = await Restaurant.findById(restaurantId); // Find the restaurant in the database using the id
+        const restaurant = await Restaurant.findById(restaurantId, {__v: 0, updatedAt: 0, createdAt: 0}); // Find the restaurant in the database using the id
 
         if(!restaurant){
 
