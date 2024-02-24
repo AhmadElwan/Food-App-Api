@@ -3,7 +3,7 @@ const User = require('../models/User');
 
 // function to get an existing user
 
-getUser = async (req, res) => {
+const getUser = async (req, res) => {
 
     const userId = req.user.id; // Get the id of the user from the request
 
@@ -24,11 +24,15 @@ getUser = async (req, res) => {
 
 // function to delete a user
 
-deleteUser = async (req, res) => {
+const deleteUser = async (req, res) => {
 
     const userId = req.user.id; // Get the id of the user from the request
 
     try {
+
+        const user = await User.findById({_id: userId}); // Look for the user in the database using the id sent in the request
+
+        if (!user) return res.status(404).json({status: 'false', error: 'User not found'}); // Return the error message if the user does not exist
 
         await User.findByIdAndDelete(userId); // Look for the user in the database using the id and delete it
 
@@ -43,7 +47,7 @@ deleteUser = async (req, res) => {
 
 // function to delete a user
 
-updateUser = async (req, res) => {
+const updateUser = async (req, res) => {
 
     const userId = req.user.id; // Get the id of the user from the request
 
