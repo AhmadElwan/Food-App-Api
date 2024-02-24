@@ -3,7 +3,7 @@ const Restaurant = require('../models/Restaurant');
 
 // function to add a new restaurant
 
-addRestaurant = async (req, res) => {
+const addRestaurant = async (req, res) => {
     
     const newRestaurant = new Restaurant(req.body); // Create a new restaurant object from the request body
     
@@ -21,7 +21,7 @@ addRestaurant = async (req, res) => {
 
 // functiion to trigger the service availability --> (isAvailable)
 
-serviceAvailablity = async (req, res) => {
+const serviceAvailablity = async (req, res) => {
     
     const restaurantId = req.params.id; // Get the id of the restaurant from the request
 
@@ -50,11 +50,19 @@ serviceAvailablity = async (req, res) => {
 
 // delete an already existing restaurant
 
-deleteRestaurant = async (req, res) => {
+const deleteRestaurant = async (req, res) => {
 
     const restaurantId = req.params.id; // Get the id of the restaurant from the request
 
     try{
+
+        const restaurant = await Restaurant.findById(restaurantId); // Find the restaurant in the database using the id
+
+        if(!restaurant){
+            
+            return res.status(404).json({status: 'false', message: 'Restaurant not found'}); // Return the error message if no restaurant with the given id exist
+        
+        }
 
         await Restaurant.findByIdAndDelete(restaurantId); // Find the restaurant in the database using the id and delete it
 
@@ -70,7 +78,7 @@ deleteRestaurant = async (req, res) => {
 
 // function to get a restaurant
 
-getRestaurant = async (req, res) => {
+const getRestaurant = async (req, res) => {
 
     const restaurantId = req.params.id; // Get the id of the restaurant from the request
 
@@ -95,7 +103,7 @@ getRestaurant = async (req, res) => {
 
 // function to suggest some random restaurants
 
-getRandomRestaurants = async (req, res) => {
+const getRandomRestaurants = async (req, res) => {
 
     try{
 
