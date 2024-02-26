@@ -8,6 +8,7 @@ const authRouter = require('./routes/auth');
 const userRouter = require('./routes/user');
 const restaurantRouter = require('./routes/restaurant');
 const categoryRouter = require('./routes/category');
+const foodRouter = require('./routes/food');
 
 
 // Creating an Express application
@@ -50,6 +51,7 @@ app.use('/', authRouter);
 app.use('/api/users', userRouter);
 app.use('/api/restaurants', restaurantRouter);
 app.use('/api/categories', categoryRouter);
+app.use('/api/foods', foodRouter);
 
 
 // Starting the Express server on the specified port or a default port
