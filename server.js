@@ -51,7 +51,7 @@ app.use('/', authRouter);
 app.use('/api/users', userRouter);
 app.use('/api/restaurants', restaurantRouter);
 app.use('/api/categories', categoryRouter);
-app.use('/api/foods', foodRouter);
+app.use('/api/food', foodRouter);
 
 
 // Starting the Express server on the specified port or a default port
