@@ -20,7 +20,7 @@ router.get('/restaurant/:restaurantId', foodController.getFoodByRestaurant); // 
 
 router.get('/recommendation/"code', foodController.getRandomFoodByCode); // get random food route by CODE
 
-router.update('/:id', verifyVendor, foodController.updateFood); // update food route -- ONLY VENDORS AND ADMIN
+router.put('/:id', verifyVendor, foodController.updateFood); // update food route -- ONLY VENDORS AND ADMIN
 
 
 
