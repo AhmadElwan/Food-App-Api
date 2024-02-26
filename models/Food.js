@@ -12,6 +12,11 @@ const FoodSchema = new mongoose.Schema({
         required: true
     },
 
+    foodTypes: {
+        type: Array,
+        required: true
+    },
+
     category: {
         type: String,
         required: true
