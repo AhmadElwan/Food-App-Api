@@ -6,7 +6,7 @@ const Cart = require('../models/Cart');
 
 addProductToCart = async (req, res) => {
     const userId = req.user.id;
-    const { productId, totalPrice, quantity } = req.body;
+    const { productId, totalPrice } = req.body;
 
     let count;
 
