@@ -135,6 +135,7 @@ getCartCount = async (req, res) => {
     } catch (error){
 
 
+        return res.status(500).json({ status: 'false', error: error.message });
 
     }
 
@@ -142,17 +143,44 @@ getCartCount = async (req, res) => {
 
 // function to decrement product quantity in cart
 
-decrementProductQuantity = async (req, res) => {}
+decrementProductQuantity = async (req, res) => {
 
-// function to clear user's cart
+    const userId = req.user.id;
+    const productId = req.body.productId;
+    let count;
 
-clearUserCart = async (req, res) => {}
+    try{
+
+        const product = await Cart.findOne({ userId, productId }); // Find if the product is already in the cart
+
+        if (!product) return res.status(404).json({ status: 'false', message: 'product not found in cart' }); // Return the error message if the product is not found in the cart
+
+        const productPrice = product.totalPrice / product.quantity; // Calculate the price of the product
+
+        if (product.quantity == 1){
+
+            await Cart.findByIdAndDelete({ userId, productId });
+            count = await Cart.countDocuments({ userId }); // Count the number of products in the cart
+            return res.status(200).json({ status: 'true', message: 'Item removed from cart', cartCount: count }); // If the quantity is 1, remove the product from the cart
+
+        }
 
 
+        // if the product is found in cart and the quantity is greater than 1:
+
+        product.quantity = product.quantity - 1; // Decrement the quantity by 1
+        product.totalPrice -= productPrice; // Calculate the new total price
+        await item.save(); // Save the updated cart item to the database
+
+        return res.status(200).json({ status: 'true', message: 'Quantity decremented successfully' });
+
+    } catch (error){
 
 
+    }
 
 
+}
 
 
 
