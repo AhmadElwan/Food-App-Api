@@ -74,7 +74,7 @@ removeProductFromCart = async (req, res) => {
 
 }
 
-// function to fetch user's cart
+// function to get user's cart
 
 fetchUserCart = async (req, res) => {
 
@@ -82,10 +82,10 @@ fetchUserCart = async (req, res) => {
 
     try{
 
-        const userCart = await Cart.find({ userId: userId })
-        .populate({
+        const userCart = await Cart.find({ userId: userId }) // Find all products in the user's cart
+        .populate({ // Populate the product information in the cart 
             path: 'productId',
-            select: 'title imageUrl restaurant rating ratingCount'
+            select: 'title imageUrl restaurant rating ratingCount' // Select the required fields
         });
 
         return res.status(200).json({ status: 'true', cart: userCart });
@@ -106,9 +106,9 @@ clearUserCart = async (req, res) => {
 
     try{
 
-        await Cart.deleteMany({ userId: userId });
+        await Cart.deleteMany({ userId: userId }); // Delete all products from the user's cart
 
-        count = await Cart.countDocuments({ userId });
+        count = await Cart.countDocuments({ userId }); // Count the number of products in the cart
 
         return res.status(200).json({ status: 'true', message: 'Cart cleared successfully', count: count });
 
@@ -128,7 +128,7 @@ getCartCount = async (req, res) => {
 
     try{
 
-        const count = await Cart.countDocuments({ userId });
+        const count = await Cart.countDocuments({ userId }); // Count the number of products in the cart
 
         return res.status(200).json({ status: 'true', cartCount: count });
 
