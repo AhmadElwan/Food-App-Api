@@ -122,7 +122,23 @@ clearUserCart = async (req, res) => {
 
 // function to get cart count (number of products in cart)
 
-getCartCount = async (req, res) => {}
+getCartCount = async (req, res) => {
+
+    const userId = req.user.id;
+
+    try{
+
+        const count = await Cart.countDocuments({ userId });
+
+        return res.status(200).json({ status: 'true', cartCount: count });
+
+    } catch (error){
+
+
+
+    }
+
+}
 
 // function to decrement product quantity in cart
 
