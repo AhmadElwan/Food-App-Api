@@ -99,7 +99,26 @@ fetchUserCart = async (req, res) => {
 }
 
 // function to clear user's cart
-clearUserCart = async (req, res) => {}
+clearUserCart = async (req, res) => {
+
+    const userId = req.user.id;
+    let count;
+
+    try{
+
+        await Cart.deleteMany({ userId: userId });
+
+        count = await Cart.countDocuments({ userId });
+
+        return res.status(200).json({ status: 'true', message: 'Cart cleared successfully', count: count });
+
+    } catch ( error ) {
+
+        return res.status(500).json({ status: 'false', message: 'Error fetching cart', error: error.message });
+
+    }
+
+}
 
 // function to get cart count (number of products in cart)
 
