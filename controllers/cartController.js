@@ -48,11 +48,55 @@ addProductToCart = async (req, res) => {
 
 // function to remove product from cart
 
-removeProductFromCart = async (req, res) => {}
+removeProductFromCart = async (req, res) => {
+
+    const itemId = req.params.id;
+    const userId = req.user.id;
+    count = await Cart.countDocuments({ userId });
+
+    try{
+
+        const cartItem = await Cart.findById(itemId); // Find if the product is in the cart
+        
+        if (!cartItem) return res.status(404).json({ status: 'false', message: 'Item not found in cart' }); // Return the error message if the product is not found in the cart
+
+        await Cart.findByIdAndDelete(itemId); 
+        
+        count = await Cart.countDocuments({ userId }); // Count the number of products in the cart
+
+        return res.status(200).json({ status: 'true', message: 'Cart item deleted successfully', count: count }); // Return the success message and the number of products in the cart
+
+    } catch ( error ) {
+
+        return res.status(500).json({ status: 'false', message: 'Error deleting item', error: error.message });
+
+    }
+
+}
 
 // function to fetch user's cart
 
-fetchUserCart = async (req, res) => {}
+fetchUserCart = async (req, res) => {
+
+    const userId = req.user.id;
+
+    try{
+
+        const userCart = await Cart.find({ userId: userId })
+        .populate({
+            path: 'productId',
+            select: 'title imageUrl restaurant rating ratingCount'
+        });
+
+        return res.status(200).json({ status: 'true', cart: userCart });
+
+    } catch ( error ) {
+
+        return res.status(500).json({ status: 'false', message: 'Error fetching cart', error: error.message });
+
+    }
+
+}
 
 // function to clear user's cart
 clearUserCart = async (req, res) => {}
